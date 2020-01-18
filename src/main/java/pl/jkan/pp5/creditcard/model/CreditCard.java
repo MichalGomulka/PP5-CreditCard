@@ -37,14 +37,15 @@ class CreditCard {
         return number;
     }
 
-    public CardSummary getsummary() {
-        CardSummary summary = new CardSummary();
-        summary.balance = getBalance();
-
-        return summary;
-    }
-
     private long getBalance() {
         return 0;
+    }
+
+    public CardSummary getSummary() {
+        return new CardSummary(number, balance);
+    }
+
+    public Object assignLimit() {
+        return assignLimit();
     }
 }
