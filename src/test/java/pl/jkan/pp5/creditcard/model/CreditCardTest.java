@@ -1,6 +1,3 @@
-
-
-
 package pl.jkan.pp5.creditcard.model;
 
 import org.junit.Assert;
@@ -15,16 +12,20 @@ public class CreditCardTest {
     @Test
     public void itAllowAssignLimitToCreditCard() {
         //Arrange // Given
-        CreditCard creditCard = new CreditCard();
+        CreditCard creditCard = thereIsCreditCard();
         //Act     // When
         creditCard.assignLimit(BigDecimal.valueOf(INITIAL_LIMIT));
         //Assert  // Then // Expect
         Assert.assertEquals(BigDecimal.valueOf(INITIAL_LIMIT), creditCard.limit());
     }
 
+    private CreditCard thereIsCreditCard() {
+        return new CreditCard("8843-3322");
+    }
+
     @Test
     public void denyAssignLimitBelowMinimum() {
-        CreditCard creditCard = new CreditCard();
+        CreditCard creditCard = thereIsCreditCard();
 
         try {
             creditCard.assignLimit(BigDecimal.valueOf(500));
@@ -33,4 +34,16 @@ public class CreditCardTest {
             Assert.assertTrue(true);
         }
     }
+
+    @Test
+    public void withdrawFromCard() {
+        //Arrange //Given
+        CreditCard creditCard = thereIsCreditCard();
+        creditCard.assignLimit(BigDecimal.valueOf(INITIAL_LIMIT));
+        //Act //When
+        creditCard.withdraw(BigDecimal.valueOf(200));
+        //Asset //Then
+        Assert.assertEquals(creditCard.currentBalance(), (BigDecimal.valueOf(800)));
+    }
+
 }
